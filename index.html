@@ -9,43 +9,27 @@
   <button onclick="launchWhatsAppSignup()">Connect WhatsApp Business</button>
   
   <div id="result" style="margin-top: 20px; padding: 10px; border: 1px solid #ccc;"></div>
-
-  <script>
-    window.fbAsyncInit = function() {
-      FB.init({
-        appId: '1723177782006815',
-        cookie: true,
-        xfbml: true,
-        version: 'v20.0'
-      });
-    };
-
-    function launchWhatsAppSignup() {
-      FB.login(function(response) {
-        if (response.authResponse) {
-          const code = response.authResponse.code;
-          document.getElementById('result').innerHTML = 
-            '<strong>✅ Success! Your Authorization Code:</strong><br><br>' + 
-            '<textarea style="width:100%; height:100px;">' + code + '</textarea>' +
-            '<br><br>Copy this code and save it!';
-        } else {
-          document.getElementById('result').innerHTML = '❌ Login cancelled';
-        }
-      }, {
-        config_id: '1021884717078968',
-        response_type: 'code',
-        override_default_response_type: true,
-        extras: {
-          setup: {},
-          sessionInfoVersion: 2
-        }
-      });
+function launchWhatsAppSignup() {
+  FB.login(function(response) {
+    if (response.authResponse) {
+      const code = response.authResponse.code;
+      document.getElementById('result').innerHTML = 
+        '<strong>✅ Success! Your Authorization Code:</strong><br><br>' + 
+        '<textarea style="width:100%; height:100px;">' + code + '</textarea>' +
+        '<br><br>Copy this code and save it!';
     }
-  </script>
+  }, {
+    config_id: '1021884717078968',
+    response_type: 'code',
+    override_default_response_type: true,
+    version: 'v3',  // Important: Use v3 for Business App onboarding
+    extras: {
+      feature_type: 'WHATSAPP_BUSINESS_APP_ONBOARDING',  // This is the key!
+      sessionInfoVersion: 3  // Changed to 3
+    }
+  });
+}
 
-  <script async defer crossorigin="anonymous" 
-    src="https://connect.facebook.net/en_US/sdk.js">
-  </script>
-</body>
-</html>
 
+
+https://metaldick.github.io/embeddedwhatsapp
